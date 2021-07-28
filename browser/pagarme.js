@@ -8750,7 +8750,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(100);
 	
-	var version =  true ? ("4.18.0") : '';
+	var version =  true ? ("4.19.1") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -10671,8 +10671,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *                    the newly created company's
 	 *                    data or to an error.
 	 **/
-	var apiKey = function apiKey(opts) {
-	  return _request2.default.get(opts, _routes2.default.company.apiKey);
+	var apiKey = function apiKey(opts, params) {
+	  return _request2.default.get(opts, _routes2.default.company.apiKey, params);
 	};
 	
 	exports.default = {
