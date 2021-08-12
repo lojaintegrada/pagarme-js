@@ -8463,7 +8463,7 @@ module.exports =
 	
 	__webpack_require__(98);
 	
-	var version =  true ? ("4.19.2") : '';
+	var version =  true ? ("4.19.3") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -32453,8 +32453,8 @@ module.exports =
 	 * @returns {Promise} Resolves to the result of
 	 *                    the request or to an error.
 	 */
-	var findAllLoans = (0, _curry2.default)(function (opts) {
-	  return _request2.default.get(opts, _routes2.default.credit.loans.all);
+	var findAllLoans = (0, _curry2.default)(function (opts, body) {
+	  return _request2.default.get(opts, _routes2.default.credit.loans.all, body || {});
 	});
 	
 	/**
@@ -32476,7 +32476,7 @@ module.exports =
 	/**
 	 * `GET /credit/loans` OR `GET /credit/loans/:loanId`
 	 *
-	 * Returns the requested loan if the loan's ID is passed; otherwise returns all loans.
+	 * Returns the requested loan if the loan's ID is passed; otherwise returns all loans
 	 *
 	 * @param {Object} opts An options params which
 	 *                      is usually already bound
@@ -32487,6 +32487,22 @@ module.exports =
 	 */
 	var findLoans = function findLoans(opts, body) {
 	  return (0, _cond2.default)([[(0, _has2.default)('loanId'), findOneLoan(opts)], [_T2.default, findAllLoans(opts)]])(body);
+	};
+	
+	/**
+	 * `GET /credit/loans`
+	 *
+	 * Returns all loans or can filtered by status.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 * @param {String} [body.status] The optional array to filter loans by status
+	 * @returns {Promise} Resolves to the result of
+	 *                    the request or to an error.
+	 */
+	var allLoans = function allLoans(opts, body) {
+	  return findAllLoans(opts, body);
 	};
 	
 	/**
@@ -32544,7 +32560,7 @@ module.exports =
 	    settlementForecast: settlementForecast
 	  },
 	  loans: {
-	    all: findAllLoans,
+	    all: allLoans,
 	    find: findLoans
 	  },
 	  statements: {
