@@ -8429,7 +8429,10 @@ module.exports =
 	
 	var pix = {
 	  base: '/pix',
-	  keys: '/pix/keys'
+	  keys: '/pix/keys',
+	  destroy: function destroy(id) {
+	    return '/pix/keys/' + id;
+	  }
 	};
 	
 	var settlements = {
@@ -8578,7 +8581,7 @@ module.exports =
 	
 	__webpack_require__(101);
 	
-	var version =  true ? ("4.19.6") : '';
+	var version =  true ? ("4.20.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -31742,9 +31745,27 @@ module.exports =
 	  return _request2.default.get(opts, _routes2.default.pix.keys);
 	};
 	
+	/**
+	 * `DELETE /pix/keys/:id`
+	 *
+	 * Deletes the pix key with the given ID
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 * @param {String} id The pix key id
+	 *
+	 * @returns {Promise} Resolves to the result of
+	 *                    the request or to an error.
+	 */
+	var destroy = function destroy(opts, id) {
+	  return _request2.default.delete(opts, _routes2.default.pix.destroy(id), {});
+	};
+	
 	exports.default = {
 	  create: create,
-	  all: all
+	  all: all,
+	  destroy: destroy
 	};
 	module.exports = exports['default'];
 
