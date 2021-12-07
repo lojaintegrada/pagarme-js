@@ -8581,7 +8581,7 @@ module.exports =
 	
 	__webpack_require__(101);
 	
-	var version =  true ? ("4.20.1") : '';
+	var version =  true ? ("4.20.2") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -21903,9 +21903,14 @@ module.exports =
 	      token = _ref2.token,
 	      impersonationKey = _ref2.impersonationKey,
 	      environment = _ref2.environment,
-	      options = _ref2.options;
+	      options = _ref2.options,
+	      visitorID = _ref2.visitorID;
 	
 	  var headers = environment === 'live' ? { 'X-Live': 1 } : {};
+	
+	  if (visitorID) {
+	    headers.visitorID = visitorID;
+	  }
 	
 	  var opts = (0, _merge2.default)(options, {
 	    headers: headers
@@ -22421,9 +22426,14 @@ module.exports =
 	      environment = _ref.environment,
 	      impersonationKey = _ref.impersonationKey,
 	      options = _ref.options,
-	      skipAuthentication = _ref.skipAuthentication;
+	      skipAuthentication = _ref.skipAuthentication,
+	      visitorID = _ref.visitorID;
 	
 	  var headers = environment === 'live' ? { 'X-Live': 1 } : {};
+	
+	  if (visitorID) {
+	    headers.visitorID = visitorID;
+	  }
 	
 	  var body = {
 	    session_id: sessionId
@@ -22513,7 +22523,8 @@ module.exports =
 	      impersonationKey = _ref.impersonationKey,
 	      jwt = _ref.jwt,
 	      options = _ref.options,
-	      skipAuthentication = _ref.skipAuthentication;
+	      skipAuthentication = _ref.skipAuthentication,
+	      visitorID = _ref.visitorID;
 	
 	  var dataHeader = {
 	    jwt: jwt
@@ -22521,6 +22532,10 @@ module.exports =
 	
 	  if (environment === 'live') {
 	    dataHeader['X-Live'] = 1;
+	  }
+	
+	  if (visitorID) {
+	    dataHeader.visitorID = visitorID;
 	  }
 	
 	  var headers = dataHeader;
