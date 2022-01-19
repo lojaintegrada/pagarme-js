@@ -8871,7 +8871,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(103);
 	
-	var version =  true ? ("4.21.0") : '';
+	var version =  true ? ("4.21.1") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -10916,9 +10916,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      skipAuthentication = _ref.skipAuthentication,
 	      visitorID = _ref.visitorID;
 	
-	  var dataHeader = {
-	    jwt: jwt
-	  };
+	  var dataHeader = {};
 	
 	  if (environment === 'live') {
 	    dataHeader['X-Live'] = 1;
@@ -10931,7 +10929,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var headers = dataHeader;
 	  var body = {
 	    account_id: accountId,
-	    merchant_id: merchantId
+	    merchant_id: merchantId,
+	    jwt: jwt
 	  };
 	
 	  if (impersonationKey) {
