@@ -8414,7 +8414,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  find: function find(id) {
 	    return '/payables/' + id;
 	  },
-	  days: '/payables/days'
+	  days: '/payables/days',
+	  findWithFormat: function findWithFormat(format) {
+	    return '/payables.' + format;
+	  }
 	};
 	
 	var invites = {
@@ -8868,7 +8871,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(103);
 	
-	var version =  true ? ("4.20.2") : '';
+	var version =  true ? ("4.21.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -11205,6 +11208,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _T2 = _interopRequireDefault(_T);
 	
+	var _both = __webpack_require__(44);
+	
+	var _both2 = _interopRequireDefault(_both);
+	
 	var _has = __webpack_require__(43);
 	
 	var _has2 = _interopRequireDefault(_has);
@@ -11244,6 +11251,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var findAll = (0, _curry2.default)(function (opts, pagination) {
 	  return _request2.default.get(opts, _routes2.default.payables.base, pagination);
 	});
+	
+	var findPayablesWithFormat = (0, _curry2.default)(function (opts, body) {
+	  var format = body.format;
+	
+	
+	  return _request2.default.get(opts, _routes2.default.payables.findWithFormat(format), body);
+	});
 	/**
 	 * `GET /payables`
 	 * Makes a request to /payables or to /payables/:id
@@ -11263,7 +11277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *                             The page index.
 	*/
 	var find = function find(opts, body) {
-	  return (0, _cond2.default)([[(0, _has2.default)('id'), findOne(opts)], [(0, _has2.default)('transactionId'), findTransaction(opts)], [_T2.default, findAll(opts)]])(body);
+	  return (0, _cond2.default)([[(0, _has2.default)('id'), findOne(opts)], [(0, _both2.default)((0, _has2.default)('recipient_id'), (0, _has2.default)('format')), findPayablesWithFormat(opts)], [(0, _has2.default)('transactionId'), findTransaction(opts)], [_T2.default, findAll(opts)]])(body);
 	};
 	
 	/**
