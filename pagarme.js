@@ -22410,11 +22410,10 @@ module.exports =
 	      skipAuthentication = _ref.skipAuthentication,
 	      visitorID = _ref.visitorID;
 	
-	  var dataHeader = {};
-	
-	  if (environment === 'live') {
-	    dataHeader['X-Live'] = 1;
-	  }
+	  var dataHeader = {
+	    Authorization: 'Bearer ' + jwt,
+	    'X-Live': environment === 'live' ? 1 : 0
+	  };
 	
 	  if (visitorID) {
 	    dataHeader.visitorID = visitorID;
@@ -22423,8 +22422,7 @@ module.exports =
 	  var headers = dataHeader;
 	  var body = {
 	    account_id: accountId,
-	    merchant_id: merchantId,
-	    jwt: jwt
+	    merchant_id: merchantId
 	  };
 	
 	  if (impersonationKey) {
