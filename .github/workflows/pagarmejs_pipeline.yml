@@ -1,0 +1,64 @@
+name: Pagarmejs pipeline
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: small-runner
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+    steps:
+    - 
+      name: Cancel previous runs
+      if: ${{ github.ref != 'refs/heads/master' }}
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+    - 
+      name: Project checkout
+      uses: actions/checkout@v3
+    - 
+      name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: dependencies-{{ checksum "yarn.lock" }}
+    - 
+      name: Run yarn
+      run: yarn
+    -
+      name: Run lint
+      run: yarn lint
+    -
+      name: Run test
+      run: yarn test
+    - 
+      name: Upload Coverage
+      uses: actions/upload-artifact@v3
+      with:
+        name: pagarmejs-coverage
+        path: coverage/
+        retention-days: 1
+
+  sonar:
+    name: Sonar
+    runs-on: small-runner
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Download coverage
+      uses: actions/download-artifact@v2
+      with:
+        name: pagarmejs-coverage
+        path: |
+          coverage/
+    -
+      name: Run Sonar
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
