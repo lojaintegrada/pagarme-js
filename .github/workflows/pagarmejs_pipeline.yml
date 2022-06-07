@@ -4,7 +4,8 @@ on:
   push:
 
 jobs:
-  test:
+  lint_and_test:
+    name: Lint and tests
     runs-on: small-runner
     strategy:
       matrix:
@@ -44,6 +45,7 @@ jobs:
 
   sonar:
     name: Sonar
+    needs: lint_and_test
     runs-on: small-runner
     steps:
     -
