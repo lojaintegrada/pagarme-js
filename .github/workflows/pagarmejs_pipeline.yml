@@ -6,7 +6,7 @@ on:
 jobs:
   lint_and_test:
     name: Lint and tests
-    runs-on: small-runner
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [10.x, 12.x]
@@ -46,7 +46,7 @@ jobs:
   sonar:
     name: Sonar
     needs: lint_and_test
-    runs-on: small-runner
+    runs-on: ubuntu-latest
     steps:
     -
       name: Checkout
@@ -56,8 +56,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: pagarmejs-coverage
-        path: |
-          coverage/
+        path: coverage/
     -
       name: Run Sonar
       uses: sonarsource/sonarcloud-github-action@master
