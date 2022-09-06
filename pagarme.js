@@ -8496,6 +8496,9 @@ module.exports =
 	    },
 	    upgrade: function upgrade(recipientId) {
 	      return '/recipients/' + recipientId + '/upgrade/identity';
+	    },
+	    updateSettings: function updateSettings(recipientId) {
+	      return '/recipients/' + recipientId + '/settings';
 	    }
 	  }
 	};
@@ -8618,7 +8621,7 @@ module.exports =
 	
 	__webpack_require__(101);
 	
-	var version =  true ? ("4.25.0") : '';
+	var version =  true ? ("4.26.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -32876,12 +32879,30 @@ module.exports =
 	  return _request2.default.post(opts, _routes2.default.kyc.identityCheck.upgrade(body.recipientId), body);
 	};
 	
+	/**
+	  * `PUT /recipient/:recipientId/settings`
+	  *
+	  * Updates an identity check settings based on an recipientId.
+	  *
+	  * @param {Object} opts An options params which
+	  *                      is usually already bound
+	  *                      by `connect` functions.
+	  * @param {String} data An object containing
+	  *                      the form data
+	  * @returns {Promise} Resolves to the result of
+	  *                    the request or to an error.
+	*/
+	var updateSettings = function updateSettings(opts, body) {
+	  return _request2.default.put(opts, _routes2.default.kyc.identityCheck.updateSettings(body.recipientId), body);
+	};
+	
 	exports.default = {
 	  identityCheck: {
 	    findOne: findOne,
 	    create: create,
 	    update: update,
-	    upgrade: upgrade
+	    upgrade: upgrade,
+	    updateSettings: updateSettings
 	  }
 	};
 	module.exports = exports['default'];
