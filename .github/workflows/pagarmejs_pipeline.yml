@@ -2,6 +2,9 @@ name: Pagarmejs pipeline
 
 on:
   push:
+    branches:
+      - master
+  pull_request:
 
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref }}
