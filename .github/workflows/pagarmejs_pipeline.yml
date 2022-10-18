@@ -3,6 +3,10 @@ name: Pagarmejs pipeline
 on:
   push:
 
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint_and_test:
     name: Lint and tests
@@ -11,12 +15,6 @@ jobs:
       matrix:
         node-version: [10.x, 12.x]
     steps:
-    - 
-      name: Cancel previous runs
-      if: ${{ github.ref != 'refs/heads/master' }}
-      uses: styfle/cancel-workflow-action@0.9.1
-      with:
-        access_token: ${{ github.token }}
     - 
       name: Project checkout
       uses: actions/checkout@v3
@@ -51,6 +49,8 @@ jobs:
     -
       name: Checkout
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     -
       name: Download coverage
       uses: actions/download-artifact@v2
