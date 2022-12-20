@@ -8483,6 +8483,11 @@ module.exports =
 	    monthly: function monthly(loanId) {
 	      return '/credit/loans/' + loanId + '/statements/monthly';
 	    }
+	  },
+	  interests: {
+	    create: '/credit/interests',
+	    find: '/credit/interests',
+	    options: '/credit/interests/options'
 	  }
 	};
 	
@@ -8624,7 +8629,7 @@ module.exports =
 	
 	__webpack_require__(101);
 	
-	var version =  true ? ("4.28.0") : '';
+	var version =  true ? ("4.29.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -32788,6 +32793,55 @@ module.exports =
 	  return _request2.default.get(opts, _routes2.default.credit.statements.monthly(body.loanId), body);
 	};
 	
+	/**
+	 * `POST /credit/interests`
+	 *
+	 * Creates an credit interest
+	   *
+	   * @param {Object} opts An options params which
+	   *                      is usually already bound
+	   *                      by `connect` functions.
+	   * @param {Object} data An object containing
+	   *                      the data to create the payment
+	   * @returns {Promise} Resolves to the result of
+	   *                    the request or to an error.
+	 */
+	var createInterest = function createInterest(opts, body) {
+	  return _request2.default.post(opts, _routes2.default.credit.interests.create, body);
+	};
+	
+	/**
+	 * `GET /credit/interests`
+	 *
+	 * Makes a request to get interest.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @returns {Promise} Resolves to the result of
+	 *                    the request or to an error.
+	*/
+	var findInterest = function findInterest(opts, body) {
+	  return _request2.default.get(opts, _routes2.default.credit.interests.find, body);
+	};
+	
+	/**
+	 * `GET /credit/interests/options`
+	 *
+	 * Makes a request to get interest options.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 *
+	 * @returns {Promise} Resolves to the result of
+	 *                    the request or to an error.
+	*/
+	var findInterestOptions = function findInterestOptions(opts, body) {
+	  return _request2.default.get(opts, _routes2.default.credit.interests.options, body);
+	};
+	
 	exports.default = {
 	  creditLines: {
 	    all: findAllCreditLines
@@ -32805,6 +32859,11 @@ module.exports =
 	  statements: {
 	    findMonthly: monthlyStatement,
 	    findDaily: dailyStatement
+	  },
+	  interests: {
+	    create: createInterest,
+	    find: findInterest,
+	    options: findInterestOptions
 	  }
 	};
 	module.exports = exports['default'];
