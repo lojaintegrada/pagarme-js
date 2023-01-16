@@ -8919,7 +8919,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(103);
 	
-	var version =  true ? ("4.29.0") : '';
+	var version =  true ? ("4.31.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -11930,8 +11930,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *                    the newly created company's
 	 *                    data or to an error.
 	 **/
-	var resetKeys = function resetKeys(opts) {
-	  return _request2.default.put(opts, _routes2.default.company.resetKeys);
+	var resetKeys = function resetKeys(opts, body) {
+	  return _request2.default.put(opts, _routes2.default.company.resetKeys, body);
 	};
 	
 	/**
