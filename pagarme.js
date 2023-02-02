@@ -8165,6 +8165,9 @@ module.exports =
 	  },
 	  cancel: function cancel(recipientId, id) {
 	    return '/recipients/' + recipientId + '/bulk_anticipations/' + id + '/cancel';
+	  },
+	  simulate: function simulate(recipientId) {
+	    return '/recipients/' + recipientId + '/bulk_anticipations/simulate';
 	  }
 	};
 	
@@ -24673,6 +24676,25 @@ module.exports =
 	  return _request2.default.post(opts, _routes2.default.bulkAnticipations.cancel(body.recipientId, body.id), body);
 	};
 	
+	/**
+	 * `GET /recipients/:recipient_id/bulk_anticipations/simulate`
+	 * Performs anticipation simulation for a recipient.
+	 *
+	 * @param {Object} opts An options params which
+	 *                      is usually already bound
+	 *                      by `connect` functions.
+	 * @param {Object} query The payload for the request
+	 * @param {String} query.recipientId The recipient ID.
+	 * @param {Number} query.requested_amount Value required to perform the simulation (in cents).
+	 * @param {Number} query.payment_date Anticipation payment date to be simulated (in milliseconds).
+	 * @param {String} query.timeframe Anticipation timeframe (start, end).
+	 *
+	 * @returns {Promise} Resolves to the result of the request or to an error.
+	 */
+	var simulate = function simulate(opts, query) {
+	  return _request2.default.get(opts, _routes2.default.bulkAnticipations.simulate(query.recipientId), (0, _dissoc2.default)('recipientId', query));
+	};
+	
 	exports.default = {
 	  find: find,
 	  all: all,
@@ -24682,7 +24704,8 @@ module.exports =
 	  limits: limits,
 	  days: days,
 	  confirm: confirm,
-	  cancel: cancel
+	  cancel: cancel,
+	  simulate: simulate
 	};
 	module.exports = exports['default'];
 
