@@ -8632,7 +8632,7 @@ module.exports =
 	
 	__webpack_require__(101);
 	
-	var version =  true ? ("4.31.0") : '';
+	var version =  true ? ("4.32.0") : '';
 	
 	var defaultHeaders = {
 	  'Content-Type': 'application/json',
@@ -22617,7 +22617,12 @@ module.exports =
 	    return (0, _bluebird.reject)(new Error('You must supply a valid jwt token and a valid account_id'));
 	  }).then(function () {
 	    return {
-	      authentication: { account_id: accountId, jwt: jwt, merchant_id: merchantId },
+	      authentication: {
+	        account_id: accountId,
+	        jwt: jwt,
+	        merchant_id: merchantId,
+	        company_id: companyId
+	      },
 	      options: opts
 	    };
 	  });
